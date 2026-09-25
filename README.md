@@ -1,68 +1,50 @@
-# Women Empowerment AI Platform 🌸
+# Team Bliss — React
 
-An AI-powered women empowerment platform built during a hackathon to provide guidance, awareness, and support using modern web technologies and AI integrations.
+React (Vite) conversion of the Team Bliss "Empowering Women, Securing Lives"
+hackathon site — same design, animations, and content, rebuilt as
+components instead of a single HTML/CSS/JS bundle.
 
-## 🚀 Project Overview
+## Structure
 
-Women Empowerment AI Platform is designed to help women access career guidance, educational resources, safety awareness, and motivational support through an interactive and user-friendly platform.
+```
+src/
+  components/
+    StarBackground.jsx   canvas starfield (was the #bg-canvas script)
+    Header.jsx            orbit logo, nav, scroll-shrink, mobile hamburger
+    Hero.jsx               headline + floating particles
+    About.jsx               "Who We Are" + stat cards
+    Portfolio.jsx           project grid (opens the chat widget for the AI card)
+    Team.jsx                 team cards with image-fails-to-initial fallback
+    Contact.jsx              contact chips
+    Footer.jsx
+    ChatWidget.jsx           floating chat button + Chatbase iframe window
+  hooks/
+    useReveal.js           IntersectionObserver hook (replaces the old
+                             .reveal / .stagger-children scroll-reveal script)
+  App.jsx
+  main.jsx
+  index.css                 the original stylesheet, unchanged
+public/images/               team avatars
+```
 
-This project was developed by a team of 2 during a hackathon within a limited timeline, focusing on rapid development, clean architecture, and AI-powered features.
+## Run it
 
----
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+```
 
-## ✨ Features
+## Notes on the conversion
 
-- 🤖 AI-driven guidance system
-- 📱 Responsive and modern UI
-- 🔗 REST API integration
-- 🧠 AI/ML API powered recommendations
-- ⚡ Fast and modular frontend architecture
-- 🛡️ Clean separation of UI and business logic
-- 👥 Team collaboration in hackathon environment
-
----
-
-## 🛠️ Tech Stack
-
-- JavaScript (ES6+)
-- REST APIs
-- AI/ML APIs
-- Git & GitHub
-
----
-
-## 🏗️ Architecture & Development
-
-- Implemented modular service classes for API communication
-- Applied OOP design principles for maintainable code structure
-- Maintained separation of concerns between UI components and business logic
-- Integrated REST APIs for AI-powered guidance functionalities
-- Delivered a working prototype successfully within the hackathon timeline
-
----
-
-## 📂 Future Enhancements
-
-- User authentication system
-- Personalized AI chatbot assistant
-- Community discussion forum
-- Career recommendation engine
-- Real-time support features
-
----
-
-## 🤝 Team
-
-Hackathon Project — Team of 2
-
----
-
-## 📄 License
-
-This project is open-source and available under the MIT License.
-
----
-
-## 👨‍💻 Developed By
-
-Hari Om Tiwari and Lavlesh Kumar Yadav
+- All the vanilla-JS behaviour from the old `script.js` (header shrink on
+  scroll, hamburger/mobile nav, smooth-scroll anchors, scroll-reveal
+  animations, chat toggle/outside-click/escape-to-close) is now plain
+  React state + `useEffect`, split one concern per component.
+- `style.css` was carried over as-is (`src/index.css`) — the class names
+  in every component match it exactly, so the visuals are unchanged.
+- Portfolio and team data are plain arrays at the top of their components
+  — edit those arrays to add/change projects or teammates instead of
+  touching markup.
+- The Chatbase iframe URL is the one from the original site; swap it in
+  `ChatWidget.jsx` if you spin up your own bot.
